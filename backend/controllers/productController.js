@@ -2,6 +2,8 @@ const product = require('../models/product');
 const Product = require('../models/product')
 
 //create new product  =>  /api/v1/product/new
+
+
 exports.newProduct = async(req, res, next) => {
 
     const product = await Product.create(req.body);
@@ -48,7 +50,7 @@ exports.getSingleProduct = async (req, res, next) => {
 
 exports.updateProduct = async(req, res, next) => {
 
-    let product = await Product.findById(req, params.id);
+    let product = await Product.findById(req.params.id);
 
     if(!product){
 
@@ -64,11 +66,14 @@ exports.updateProduct = async(req, res, next) => {
         useFindAndModify: false
     });
 
-    res.sned(200).json({
+    res.status(200).json({
 
         success:true,
         product
     })
 
+
 }
+
+
 
