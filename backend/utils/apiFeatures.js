@@ -35,9 +35,20 @@ class ApiFeatures {
 
        queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, match => '$${match}')
 
-       console.log(queryCopy);
+       console.log(queryStr);
 
-        this.query = this.query.find(queryStr);
+        this.query = this.query.find(JSON.parse(queryStr));
+
+        return this;
+    }
+
+    pagination(resPerPage){
+
+        const currentpage = Number(this.queryStr.page) || 1;
+
+        const skip = resPerPage *(currentpage - 1);
+
+        this.query = this.query.limit(resPerPage).skip(skip);
 
         return this;
     }
